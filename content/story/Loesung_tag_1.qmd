@@ -1,0 +1,75 @@
+---
+title: "Digitale Arbeitsblätter"
+author: ""
+---
+
+
+# Lösung für Tag 1
+
+Bedauerlicher Weise hat das Erarbeiten der Lösung nicht so funktioniert,
+wie ich es eigentlich von erwartet hatte.   
+Aus diesem Grund kommt hier ein sehr ausführliche Lösung, von der ich dann  
+ausgehe, dass die Inhalte verstanden und abrufbar sind.
+
+## Grober Ablauf
+
+* Lesen des Wörterbuchs in eine Liste
+* Schleife über die Liste
+  - aktuelles Wort verschlüsseln
+  - vergleichen mit dem verschlüsselten Kennwort
+  - bei Übereinstimmung eine Erfolgsmeldung ausgeben
+
+## Details
+
+```python
+
+import hashlib      #<1>
+
+hash = b"f4f4dd5d0aa5923102980e698dfdaaa2b429277505f0ff53255db853669a7d72" #<2>
+
+with open("woerterbuch.txt", "r") as datei:  #<3>
+    zeilen = datei.readlines()               #<4>
+
+for zeile in zeilen:     #<5>
+    vergleich = hashlib.sha256(wort.strip().encode()).hexdigest() #<6>
+    vergleich = vergleich.encode()  #<7>
+    if vergleich == hash:           #<8>
+        print("Erfolg: Das Kennwort lautet ", zeile)  #<9>
+```
+
+1. Einbinden von Modulen erfolgt mit `import` und zwar normalerweise 
+   am Anfang des Programms.
+2. Das verschlüsselte Kennwort liegt als sogenannter *Byte-String* vor.  
+   Dieses Format liefert der Befehl *encode()* und wird hier unbedingt benötigt.
+   Hintergrund sind Probleme mit Sonderzeichen wie ö, ä, ...  
+   Allerdings müssen dann alle Zeichenketten in dieser Form vorliegen, damit das
+   Vergleichen später funktioniert.
+3. So öffnet man eine Datei zum Lesen. Das ist ein festes Vorgehen und damit *Lernstoff*.
+4. So liest man alle Zeilen in eine Liste. Auch das ist festes Vorgehen ....
+5. Die Liste `zeilen` wird schrittweise durchlaufen, das aktuelle Wort befindet sich in der
+   Variablen `zeile`.
+6. Diese Verschlüsselung muss man nicht auswendig wissen - aber hier wird das aktuelle Wort verschlüsselt.
+7. Da wir *Byte-Strings* vergleichen, müssen wir das noch umwandeln
+8. Vergleich der beiden Byte-Strings ...
+9. Falls sie übereinstimmen, Erfolgsmeldung
+
+## Fazit
+
+Die Ziele der Übung wären gewesen:
+
+* Lesen der Aufgabenstellung
+* Umsetzen / Umschreiben von vorgegebenen Lösungsbausteinen auf das aktuelle Problem
+* Recherche im Internet für kleine Fragen `len(zeilen)`
+* Anwenden erlernter Techniken (Schleifen, Vergleiche)
+
+Von der Planung her hätten Hilfstellungen nur bei dem Problem mit `encode` 
+nötig sein sollen.
+
+## Ausblick
+
+Im Leistungsnachweis wird es ähnlich sein.  
+
+* Manche Dinge sind vorgegeben und müssen angepasst werden.
+* Manche Techniken müssen gelernt sein.
+* In jedem Fall wird mehr verlangt werden, als pures Wiedergeben von Bausteinen.
+
